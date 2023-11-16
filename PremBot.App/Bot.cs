@@ -13,7 +13,7 @@ public abstract class Bot
     public static async Task RunBotAsync()
     {
         var discord = new Discord();
-
+        
         var discordConfig = new DiscordConfiguration()
         {
             Intents = DiscordIntents.All,
@@ -43,5 +43,6 @@ public abstract class Bot
         
         slashCommands.RegisterCommands<PingCommand>();
         slashCommands.RegisterCommands<CaptionCommand>();
+        slashCommands.RegisterCommands<StandingsCommand>();
     }
 }
