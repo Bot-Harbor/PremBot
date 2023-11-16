@@ -12,28 +12,43 @@ public class StandingsCommand : ApplicationCommandModule
         var instance = PremService.GetInstance();
         var standings = await instance.GetTable();
 
-        var standingsEmbed = new DiscordEmbedBuilder()
+        if (standings.Count != 0)
         {
-            Title = $"Premiere League Standings",
-            Color = DiscordColor.SpringGreen,
-        };
+            var standingsEmbed = new DiscordEmbedBuilder()
+            {
+                Title = $"Premiere League Standings ⚽ 🦁",
+                Color = DiscordColor.SpringGreen,
+            };
 
-        foreach (var standing in standings)
-        {
-            standingsEmbed.AddField($"{standing.Team.Name}",
-                $"Position: {standing.Position}\n" +
-                $"Matches Played: {standing.PlayedGames}\n" +
-                $"Wins: {standing.Won}\n" +
-                $"Draws: {standing.Draw}\n" +
-                $"Loses: {standing.Lost}\n" +
-                $"Goals For: {standing.GoalsFor}\n" +
-                $"Goal Against: {standing.GoalsAgainst}\n" +
-                $"Goal Difference: {standing.GoalDifference}\n" +
-                $"Points: {standing.Points}\n", inline: true);
+            foreach (var standing in standings)
+            {
+                standingsEmbed.AddField($"{standing.Team.Name}",
+                    $"Position: {standing.Position}\n" +
+                    $"Matches Played: {standing.PlayedGames}\n" +
+                    $"Wins: {standing.Won}\n" +
+                    $"Draws: {standing.Draw}\n" +
+                    $"Loses: {standing.Lost}\n" +
+                    $"Goals For: {standing.GoalsFor}\n" +
+                    $"Goals Against: {standing.GoalsAgainst}\n" +
+                    $"Goal Difference: {standing.GoalDifference}\n" +
+                    $"Points: {standing.Points}\n", inline: true);
+            }
+
+            standingsEmbed.WithFooter($"Time Stamp: {DateTime.Now}");
+
+            await context.CreateResponseAsync(standingsEmbed);
         }
+        else
+        {
+            var errorEmbed = new DiscordEmbedBuilder()
+            {
+                Title = "⚠️ No standings available at this time.",
+                Color = DiscordColor.Red,
+            };
 
-        standingsEmbed.WithFooter($"Time Stamp: {DateTime.Now}");
+            errorEmbed.WithFooter($"Time Stamp: {DateTime.Now}");
 
-        await context.CreateResponseAsync(standingsEmbed);
+            await context.CreateResponseAsync(errorEmbed);
+        }
     }
 }
