@@ -7,8 +7,10 @@ public class CaptionCommand : ApplicationCommandModule
 {
     [SlashCommand("caption", "Give any image a caption.")]
     public async Task CaptionCommandAsync(InteractionContext context,
-        [Option("caption", "The caption you want the image to have")] string caption,
-        [Option("image", "The image you want to upload")] DiscordAttachment image)
+        [Option("caption", "The caption you want the image to have")]
+        string caption,
+        [Option("image", "The image you want to upload")]
+        DiscordAttachment image)
     {
         await context.DeferAsync();
 
@@ -18,6 +20,11 @@ public class CaptionCommand : ApplicationCommandModule
             ImageUrl = image.Url,
             Color = DiscordColor.Blue
         };
+
+        captionEmbed.WithFooter
+        (
+            $"Time Stamp: {DateTime.Now}"
+        );
 
         await context.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(captionEmbed));
     }
