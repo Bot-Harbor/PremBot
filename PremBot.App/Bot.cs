@@ -1,6 +1,8 @@
 ﻿using DSharpPlus;
 using DSharpPlus.EventArgs;
+using DSharpPlus.SlashCommands;
 using PremBot.App.Secrets;
+using PremBot.App.Slash_Commands;
 
 namespace PremBot.App;
 
@@ -24,12 +26,21 @@ public abstract class Bot
 
         Client.Ready += Client_Ready;
         
+        SlashCommands();
+        
         await Client.ConnectAsync();
         await Task.Delay(-1);
     }
-
+    
     private static Task Client_Ready(DiscordClient sender, ReadyEventArgs args)
     {
         return Task.CompletedTask;
+    }
+
+    private static void SlashCommands()
+    {
+        var slashCommands = Client.UseSlashCommands();
+        
+        slashCommands.RegisterCommands<PingCommand>();
     }
 }
