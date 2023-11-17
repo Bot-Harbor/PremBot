@@ -13,7 +13,7 @@ public class StandingsCommand : ApplicationCommandModule
         var standings = await instance.GetTable();
         var season = await instance.GetSeason();
 
-        if (standings.Count != 0)
+        if (standings.Count != 0 || season != null)
         {
             var standingsEmbed = new DiscordEmbedBuilder()
             {
