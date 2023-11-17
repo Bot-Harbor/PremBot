@@ -45,5 +45,6 @@ public abstract class Bot
         slashCommands.RegisterCommands<CaptionCommand>();
         slashCommands.RegisterCommands<StandingsCommand>();
         slashCommands.RegisterCommands<FixtureCommand>();
+        slashCommands.RegisterCommands<HelpCommand>();
     }
 }
