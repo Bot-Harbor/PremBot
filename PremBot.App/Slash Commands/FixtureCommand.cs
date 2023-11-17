@@ -23,7 +23,7 @@ public class FixtureCommand : ApplicationCommandModule
         {
             fixtureEmbed.Title = $"{team.GetName()} Fixtures: {fixture.Season.StartDate.Substring(0, 4)}/" +
                                  $"{fixture.Season.EndDate.Substring(0, 4)} ⚽ 🦁";
-            fixtureEmbed.Description = "*Note that these are the next 25 games and not the full fixture";
+            fixtureEmbed.Description = "*Only shows next 25 games and may have some non Premiere League games";
             fixtureEmbed.Color = DiscordColor.SpringGreen;
         }
 
