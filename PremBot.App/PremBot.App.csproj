@@ -13,8 +13,4 @@
       <PackageReference Include="DSharpPlus.SlashCommands" Version="4.4.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\PremBot.Models\PremBot.Models.csproj" />
-    </ItemGroup>
-
 </Project>
