@@ -26,25 +26,79 @@ public class PremService
     {
         using var client = new HttpClient();
         var premApi = new PremApi();
-        
+
         client.DefaultRequestHeaders.Add("X-Auth-Token", premApi.Token);
         var result = await client.GetAsync("http://api.football-data.org/v4/competitions/PL/standings");
-        
+
         if (result.IsSuccessStatusCode)
         {
             var json = await result.Content.ReadAsStringAsync();
             var standings = JsonSerializer.Deserialize<PremStandingsModel>(json);
 
-            if (standings.Standings.Count > 0)
+            if (standings.Standings.Count != 0)
             {
-                return standings.Standings[0]?.Table;
+                return standings.Standings[0].Table;
             }
         }
-        else       
+        else
         {
             Console.WriteLine($"Http Status Code: {result.StatusCode}");
         }
 
         return new List<Table>();
+    }
+
+    public async Task<List<Match>> GetMatches(int id)
+    {
+        using var client = new HttpClient();
+        var premApi = new PremApi();
+
+        client.DefaultRequestHeaders.Add("X-Auth-Token", premApi.Token);
+        var result = await client.GetAsync($"https://api.football-data.org/v4/teams/{id}/matches?status=SCHEDULED");
+
+        if (result.IsSuccessStatusCode)
+        {
+            var json = await result.Content.ReadAsStringAsync();
+            var fixtures = JsonSerializer.Deserialize<PremFixtureModel>(json);
+
+            if (fixtures.Matches.Count != 0)
+            {
+                return fixtures.Matches;
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Http Status Code: {result.StatusCode}");
+        }
+
+        return new List<Match>();
+    }
+
+    public async Task<SeasonStanding> GetSeason()
+    {
+        using var client = new HttpClient();
+        var premApi = new PremApi();
+
+        client.DefaultRequestHeaders.Add("X-Auth-Token", premApi.Token);
+        var result = await client.GetAsync($"http://api.football-data.org/v4/competitions/PL/standings");
+
+        if (result.IsSuccessStatusCode)
+        {
+            var json = await result.Content.ReadAsStringAsync();
+            Console.WriteLine(json);
+            var standings = JsonSerializer.Deserialize<PremStandingsModel>(json);
+
+            if (standings != null)
+            {
+                return standings.Season;
+            }
+        }
+
+        if (!result.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"Http Status Code: {result.StatusCode}");
+        }
+
+        return new SeasonStanding();
     }
 }
