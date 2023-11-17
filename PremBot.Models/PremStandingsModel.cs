@@ -2,7 +2,7 @@
 
 namespace PremBot.Models;
 
-public class Area
+public class AreaStanding
 {
     [JsonPropertyName("id")] public int Id { get; set; }
 
@@ -13,7 +13,7 @@ public class Area
     [JsonPropertyName("flag")] public string Flag { get; set; }
 }
 
-public class Competition
+public class CompetitionStanding
 {
     [JsonPropertyName("id")] public int Id { get; set; }
 
@@ -26,25 +26,25 @@ public class Competition
     [JsonPropertyName("emblem")] public string Emblem { get; set; }
 }
 
-public class Filters
+public class FiltersStanding
 {
     [JsonPropertyName("season")] public string Season { get; set; }
 }
 
 public class PremStandingsModel
 {
-    [JsonPropertyName("filters")] public Filters Filters { get; set; }
+    [JsonPropertyName("filters")] public FiltersStanding Filters { get; set; }
 
-    [JsonPropertyName("area")] public Area Area { get; set; }
+    [JsonPropertyName("area")] public AreaStanding Area { get; set; }
 
-    [JsonPropertyName("competition")] public Competition Competition { get; set; }
+    [JsonPropertyName("competition")] public CompetitionStanding Competition { get; set; }
 
-    [JsonPropertyName("season")] public Season Season { get; set; }
+    [JsonPropertyName("season")] public SeasonStanding Season { get; set; }
 
     [JsonPropertyName("standings")] public List<Standing> Standings { get; set; }
 }
 
-public class Season
+public class SeasonStanding
 {
     [JsonPropertyName("id")] public int Id { get; set; }
 
