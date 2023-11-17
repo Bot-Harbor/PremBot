@@ -11,12 +11,14 @@ public class StandingsCommand : ApplicationCommandModule
     {
         var instance = PremService.GetInstance();
         var standings = await instance.GetTable();
+        var season = await instance.GetSeason();
 
         if (standings.Count != 0)
         {
             var standingsEmbed = new DiscordEmbedBuilder()
             {
-                Title = $"Premiere League Standings ⚽ 🦁",
+                Title = $"Premiere League Standings: {season.StartDate.Substring(0, 4)}/" +
+                        $"{season.EndDate.Substring(0, 4)} ⚽ 🦁",
                 Color = DiscordColor.SpringGreen,
             };
 
