@@ -92,8 +92,7 @@ public class PremService
                 return standings.Season;
             }
         }
-
-        if (!result.IsSuccessStatusCode)
+        else
         {
             Console.WriteLine($"Http Status Code: {result.StatusCode}");
         }
