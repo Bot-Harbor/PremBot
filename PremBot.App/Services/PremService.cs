@@ -85,7 +85,6 @@ public class PremService
         if (result.IsSuccessStatusCode)
         {
             var json = await result.Content.ReadAsStringAsync();
-            Console.WriteLine(json);
             var standings = JsonSerializer.Deserialize<PremStandingsModel>(json);
 
             if (standings != null)
