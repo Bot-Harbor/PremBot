@@ -15,6 +15,8 @@ Want to invite PremBot to your own server?
 
 [Add PremBot](https://discord.com/api/oauth2/authorize?client_id=1174716762793721936&permissions=8&scope=bot%20applications.commands)
 
+---
+
 Great and affordable resource for hosting images!
 
 [Digital Ocean](https://www.digitalocean.com/)
