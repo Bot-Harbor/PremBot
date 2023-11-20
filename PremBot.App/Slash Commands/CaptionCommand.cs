@@ -21,9 +21,12 @@ public class CaptionCommand : ApplicationCommandModule
             Color = DiscordColor.Blue
         };
 
+        var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+            TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+        
         captionEmbed.WithFooter
         (
-            $"Time Stamp: {DateTime.Now}"
+            $"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}"
         );
 
         await context.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(captionEmbed));

@@ -15,28 +15,34 @@ public class FixtureCommand : ApplicationCommandModule
         await context.DeferAsync();
 
         var instance = PremService.GetInstance();
-        var fixtures = await instance.GetMatches(Convert.ToInt32(team)); //add season to standings
-
-        var fixtureEmbed = new DiscordEmbedBuilder();
-
-        foreach (var fixture in fixtures)
-        {
-            fixtureEmbed.Title = $"{team.GetName()} Fixtures: {fixture.Season.StartDate.Substring(0, 4)}/" +
-                                 $"{fixture.Season.EndDate.Substring(0, 4)} ⚽ 🦁";
-            fixtureEmbed.Description = "*Only shows next 25 games and may have some non Premiere League games";
-            fixtureEmbed.Color = DiscordColor.SpringGreen;
-        }
-
+        var fixtures = await instance.GetMatches(Convert.ToInt32(team));
+        
         if (fixtures.Count != 0)
         {
+            var fixtureEmbed = new DiscordEmbedBuilder();
+
+            foreach (var fixture in fixtures)
+            {
+                fixtureEmbed.Title = $"{team.GetName()} Fixtures: {fixture.Season.StartDate.Substring(0, 4)}/" +
+                                     $"{fixture.Season.EndDate.Substring(0, 4)} ⚽ 🦁";
+                fixtureEmbed.Description = "*Only shows next 25 games and may have some non Premiere League games";
+                fixtureEmbed.Color = DiscordColor.SpringGreen;
+            }
+            
             foreach (var fixture in fixtures.Take(25))
             {
+                var easternTimeGame = TimeZoneInfo.ConvertTimeFromUtc(fixture.UtcDate,
+                    TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+                
                 fixtureEmbed.AddField(
                     $"{fixture.HomeTeam.Name} vs. {fixture.AwayTeam.Name}",
-                    $"{fixture.UtcDate.ToLocalTime().ToString($"MMMM dd, h:mm tt")}\n", inline: true);
+                    $"{easternTimeGame.ToString($"MMMM dd, h:mm tt")}\n", inline: true);
             }
 
-            fixtureEmbed.WithFooter($"Time Stamp: {DateTime.Now}");
+            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+            
+            fixtureEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
             await context.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(fixtureEmbed));
         }
@@ -47,8 +53,11 @@ public class FixtureCommand : ApplicationCommandModule
                 Title = "⚠️ No fixtures available at this time.",
                 Color = DiscordColor.Red,
             };
-
-            errorEmbed.WithFooter($"Time Stamp: {DateTime.Now}");
+            
+            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+            
+            errorEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
             await context.CreateResponseAsync(errorEmbed);
         }

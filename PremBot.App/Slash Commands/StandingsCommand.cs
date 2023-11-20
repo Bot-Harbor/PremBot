@@ -36,7 +36,10 @@ public class StandingsCommand : ApplicationCommandModule
                     $"Points: {standing.Points}\n", inline: true);
             }
 
-            standingsEmbed.WithFooter($"Time Stamp: {DateTime.Now}");
+            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+            
+            standingsEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
             await context.CreateResponseAsync(standingsEmbed);
         }
@@ -48,7 +51,10 @@ public class StandingsCommand : ApplicationCommandModule
                 Color = DiscordColor.Red,
             };
 
-            errorEmbed.WithFooter($"Time Stamp: {DateTime.Now}");
+            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+            
+            errorEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
             await context.CreateResponseAsync(errorEmbed);
         }

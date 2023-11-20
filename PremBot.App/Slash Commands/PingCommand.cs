@@ -16,9 +16,12 @@ public class PingCommand : ApplicationCommandModule
             Color = DiscordColor.Orange,
         };
 
+        var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+            TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+        
         pingEmbed.WithFooter
         (
-            $"Time Stamp: {DateTime.Now}"
+            $"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}"
         );
         
         await context.CreateResponseAsync(pingEmbed, ephemeral: true);
