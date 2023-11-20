@@ -41,12 +41,16 @@ public class HelpCommand : ApplicationCommandModule
         var ping = context.Client.Ping;
         var botVersion = context.Client.VersionString;
 
+        var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+            TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+        
         helpEmbed.WithFooter
         ($"*Bot Info  •  " +
          $"Total Servers: {serverCount}  •  " +
          $"Shard: {shardCount}  •  " +
          $"Ping: {ping}  •  " +
-         $"Version: {botVersion}"
+         $"Version: {botVersion}\n" +
+         $"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}"
         );
 
         var addButton = new DiscordLinkButtonComponent
