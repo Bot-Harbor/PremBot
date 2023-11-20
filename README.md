@@ -17,7 +17,7 @@ Want to invite PremBot to your own server?
 
 Great and affordable resource for hosting images!
 
-[https://www.digitalocean.com/](https://www.digitalocean.com/)
+[Digital Ocean](https://www.digitalocean.com/)
 
 ---
 
