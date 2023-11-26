@@ -60,6 +60,26 @@ public class PremService
         return new List<Match>();
     }
 
+    public async Task<List<MatchDayMatch>> GetMatchesByMatchDay(int id)
+    {
+        using var client = new HttpClient();
+        var premApi = new PremApi();
+        
+        client.DefaultRequestHeaders.Add("X-Auth-Token", premApi.Token);
+        var result = await client.GetAsync($"https://api.football-data.org/v4/competitions/PL/matches?matchday={id}");
+
+        if (result.IsSuccessStatusCode)
+        {
+            var json = await result.Content.ReadAsStringAsync();
+            var matchDayFixture = JsonSerializer.Deserialize<PremMatchDayFixtureModel>(json);
+
+            return matchDayFixture.Matches;
+            
+        }
+
+        return new List<MatchDayMatch>();
+    }
+
     public async Task<SeasonStanding> GetSeason()
     {
         using var client = new HttpClient();
