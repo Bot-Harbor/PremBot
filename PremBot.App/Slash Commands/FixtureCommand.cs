@@ -7,13 +7,11 @@ namespace PremBot.App.Slash_Commands;
 
 public class FixtureCommand : ApplicationCommandModule
 {
-    [SlashCommand("fixture", "Displays the matches for the corresponding team.")]
+    [SlashCommand("teamFixture", "Displays the matches for the corresponding team.")]
     public async Task FixtureCommandAsync(InteractionContext context,
         [Option("Team", "Fixtures for a team")]
         Team team)
     {
-        await context.DeferAsync();
-
         var instance = PremService.GetInstance();
         var fixtures = await instance.GetMatches(Convert.ToInt32(team));
         
@@ -44,7 +42,7 @@ public class FixtureCommand : ApplicationCommandModule
             
             fixtureEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
-            await context.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(fixtureEmbed));
+            await context.CreateResponseAsync(fixtureEmbed);
         }
         else
         {
