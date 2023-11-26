@@ -6,6 +6,8 @@ public enum Team
 {
     [ChoiceName("Arsenal")]
     Arsenal = 57,
+    [ChoiceName("Aston Villa")]
+    AstonVilla = 58,
     [ChoiceName("Bournemouth")]
     Bournemouth = 1044,
     [ChoiceName("Brentford")]
