@@ -23,7 +23,8 @@ public class HelpCommand : ApplicationCommandModule
         (
             "**⚽  Premiere League Commands**",
             $"🏆 </standings:1174749725413617748>\n" +
-            $"📅  </fixture:1174832703904948234>",
+            $"👕 </teamfixture:1178465057621946592>\n" +
+            $"📅 </matchdayfixture:1178462218782773298>",
             inline: true
         );
 
@@ -32,7 +33,7 @@ public class HelpCommand : ApplicationCommandModule
             "🛠️  Other Commands",
             $"🆘  </help:1175112211291705457>\n" +
             "🏓  </ping:1174725698007605278>\n" +
-            "📷 </caption:1174732729800208416>",
+            "🖼️ </caption:1174732729800208416>",
             inline: true
         );
 
