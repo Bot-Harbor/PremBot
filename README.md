@@ -39,6 +39,8 @@ Great and affordable resource for hosting images!
 
 ![image](/Images/about.png)
 
+![image](/Images/slash-commands.png)
+
 ![image](/Images/help.png)
 
 ![image](/Images/ping.png)
