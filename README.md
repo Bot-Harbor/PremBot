@@ -30,15 +30,14 @@ Great and affordable resource for hosting images!
 | `🏓 /ping` | Will pong back to the Discord channel |
 | `🖼️ /caption` | Allows you to give any image a caption |
 | `🏆 /standings` | Displays the current standings for the Premiere League |
-| `📅 /fixture` | Displays the matches for the corresponding team |
+| `👕 /teamfixture` | Displays the matches for the corresponding team |
+| `📅 /matchdayfixture` | Shows the matches for the selected match day |
 
 ---
 
 ## Screenshots
 
 ![image](/Images/about.png)
-
-![image](/Images/slash-commands.png)
 
 ![image](/Images/help.png)
 
