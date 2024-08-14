@@ -14,8 +14,6 @@ public enum Team
     Brentford = 402,
     [ChoiceName("Brighton")]
     Brighton = 397, 
-    [ChoiceName("Burnley")]
-    Burnley = 328,
     [ChoiceName("Chelsea")]
     Chelsea = 61,
     [ChoiceName("Crystal Palace")]
@@ -24,10 +22,12 @@ public enum Team
     Everton = 62,
     [ChoiceName("Fulham")]
     Fulham = 63,
+    [ChoiceName("Ipswich Town")]
+    IpswichTown = 349,
+    [ChoiceName("Leicester City")]
+    LeicesterCity = 338,
     [ChoiceName("Liverpool")]
     Liverpool = 64,
-    [ChoiceName("Luton Town")]
-    LutonTown = 389,
     [ChoiceName("Manchester City")]
     ManchesterCity = 65,
     [ChoiceName("Manchester United")]
@@ -36,8 +36,8 @@ public enum Team
     Newcastle = 67,
     [ChoiceName("Nottingham Forest")]
     NottinghamForest = 351,
-    [ChoiceName("Sheffield United")]
-    SheffieldUnited = 356,
+    [ChoiceName("Southampton")]
+    Southampton = 340,
     [ChoiceName("Tottenham")]
     Tottenham = 73,
     [ChoiceName("West Ham")]
