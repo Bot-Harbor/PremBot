@@ -22,26 +22,22 @@ public class MatchDayFixture : ApplicationCommandModule
 
             foreach (var fixture in matchDayFixture)
             {
-                matchDayFixtureEmbed.Title = $"Match Day {Math.Floor(matchDay)} Fixture: {fixture.Season.StartDate.Substring(0, 4)}/" +
-                                             $"{fixture.Season.EndDate.Substring(0, 4)} ⚽ 🦁";
+                matchDayFixtureEmbed.Title =
+                    $"Match Day {Math.Floor(matchDay)} Fixture: {fixture.Season.StartDate.Substring(0, 4)}/" +
+                    $"{fixture.Season.EndDate.Substring(0, 4)} ⚽ 🦁";
                 matchDayFixtureEmbed.Color = DiscordColor.SpringGreen;
+                matchDayFixtureEmbed.Timestamp = DateTimeOffset.UtcNow;
             }
 
             foreach (var fixture in matchDayFixture)
             {
                 var easternTimeGame = TimeZoneInfo.ConvertTimeFromUtc(fixture.UtcDate,
                     TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
-                
+
                 matchDayFixtureEmbed.AddField(
                     $"{fixture.HomeTeam.Name} vs. {fixture.AwayTeam.Name}",
                     $"{easternTimeGame.ToString($"MMMM dd, h:mm tt")}\n", inline: true);
             }
-            
-            
-            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
-                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
-            
-            matchDayFixtureEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
             await context.CreateResponseAsync(matchDayFixtureEmbed);
         }
@@ -51,12 +47,8 @@ public class MatchDayFixture : ApplicationCommandModule
             {
                 Title = "⚠️ No fixtures available at this time.",
                 Color = DiscordColor.Red,
+                Timestamp = DateTimeOffset.UtcNow
             };
-            
-            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
-                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
-            
-            errorEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
             await context.CreateResponseAsync(errorEmbed);
         }

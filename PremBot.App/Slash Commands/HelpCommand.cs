@@ -17,6 +17,7 @@ public class HelpCommand : ApplicationCommandModule
                 "Get information about the Premiere League! Type one of the commands below to get started. " +
                 $"PremBot powered by [DSharpPlus 4.4.2]" +
                 $"(https://dsharpplus.github.io/DSharpPlus/index.html) and [Docker](https://www.docker.com/).",
+            Timestamp = DateTimeOffset.UtcNow
         };
 
         helpEmbed.AddField
@@ -42,16 +43,12 @@ public class HelpCommand : ApplicationCommandModule
         var ping = context.Client.Ping;
         var botVersion = context.Client.VersionString;
 
-        var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
-            TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
-        
         helpEmbed.WithFooter
         ($"*Bot Info  •  " +
          $"Total Servers: {serverCount}  •  " +
          $"Shard: {shardCount}  •  " +
          $"Ping: {ping}  •  " +
-         $"Version: {botVersion}\n" +
-         $"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}"
+         $"Version: {botVersion}\n"
         );
 
         var addButton = new DiscordLinkButtonComponent
@@ -64,7 +61,7 @@ public class HelpCommand : ApplicationCommandModule
         var apiButton = new DiscordLinkButtonComponent("https://www.football-data.org/", "Utilize Soccer API");
 
         var messageBuilder = new DiscordInteractionResponseBuilder {IsEphemeral = true,};
-        
+
         messageBuilder.AddEmbed(helpEmbed);
         messageBuilder.AddComponents(addButton, apiButton);
 

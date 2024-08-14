@@ -20,6 +20,7 @@ public class StandingsCommand : ApplicationCommandModule
                 Title = $"Premiere League Standings: {season.StartDate.Substring(0, 4)}/" +
                         $"{season.EndDate.Substring(0, 4)} ⚽ 🦁",
                 Color = DiscordColor.SpringGreen,
+                Timestamp = DateTimeOffset.UtcNow
             };
 
             foreach (var standing in standings)
@@ -36,11 +37,6 @@ public class StandingsCommand : ApplicationCommandModule
                     $"Points: {standing.Points}\n", inline: true);
             }
 
-            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
-                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
-            
-            standingsEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
-
             await context.CreateResponseAsync(standingsEmbed);
         }
         else
@@ -49,12 +45,8 @@ public class StandingsCommand : ApplicationCommandModule
             {
                 Title = "⚠️ No standings available at this time.",
                 Color = DiscordColor.Red,
+                Timestamp = DateTimeOffset.UtcNow
             };
-
-            var easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
-                TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
-            
-            errorEmbed.WithFooter($"Time Stamp: {easternTime.ToString($"MMMM dd, yyyy h:mm tt")}");
 
             await context.CreateResponseAsync(errorEmbed);
         }
